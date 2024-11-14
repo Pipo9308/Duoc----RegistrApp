@@ -38,23 +38,6 @@ export class UpdatePasswordPage {
     }
 
     // Hacer la solicitud para actualizar la contraseña
-    this.authService.updatePassword(this.newPassword, token).subscribe(
-      async (response) => {
-        const alert = await this.alertCtrl.create({
-          header: 'Éxito',
-          message: response.message,
-          buttons: ['OK']
-        });
-        await alert.present();
-      },
-      async (error) => {
-        const alert = await this.alertCtrl.create({
-          header: 'Error',
-          message: error.message || 'Hubo un problema al actualizar la contraseña.',
-          buttons: ['OK']
-        });
-        await alert.present();
-      }
-    );
+    
   }
 }

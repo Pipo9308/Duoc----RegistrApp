@@ -9,72 +9,38 @@
 </ion-header>
 
 <ion-content>
-  
-  <!-- Mostrar la lista de cursos -->
+  <!-- Formulario para crear un nuevo curso -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Nuevo Curso</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Nombre del Curso</ion-label>
+        <ion-input [(ngModel)]="nombreCurso"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Sigla</ion-label>
+        <ion-input [(ngModel)]="siglaCurso"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Institución</ion-label>
+        <ion-input [(ngModel)]="institucionCurso"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Descripción</ion-label>
+        <ion-input [(ngModel)]="descripcionCurso"></ion-input>
+      </ion-item>
+      <ion-button expand="full" (click)="onCreateCurso()">Crear Curso</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Lista de cursos del usuario -->
   <ion-list>
-    <ion-item *ngFor="let curso of cursos" (click)="loadClases(curso.id)">
+    <ion-item *ngFor="let curso of cursos">
       <ion-label>
         <h2>{{ curso.nombre }}</h2>
         <p>{{ curso.descripcion }}</p>
-      </ion-label>
-      <!-- Botón de Crear Clase -->
-      <ion-button expand="full" (click)="onCreateClase(curso.id)">Crear Clase</ion-button>
-    </ion-item>
-  </ion-list>
-
-  <!-- Formulario para crear una nueva clase -->
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Crear Nueva Clase</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label position="floating">Fecha</ion-label>
-        <ion-input [(ngModel)]="fechaClase" type="date"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Hora de Inicio</ion-label>
-        <ion-input [(ngModel)]="horaInicio" type="time"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Hora de Término</ion-label>
-        <ion-input [(ngModel)]="horaTermino" type="time"></ion-input>
-      </ion-item>
-      <ion-button expand="full" (click)="onCreateClase(curso.id)">Crear Clase</ion-button>
-    </ion-card-content>
-  </ion-card>
-
-  <!-- Mostrar las clases del curso -->
-  <ion-list>
-    <ion-item *ngFor="let clase of clases">
-      <ion-label>
-        <h2>{{ clase.nombre }}</h2>
-        <p>{{ clase.fecha }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
-
-  <!-- Formulario para obtener los asistentes -->
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Obtener Asistentes</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label position="floating">Código de Clase</ion-label>
-        <ion-input [(ngModel)]="claseCodigo"></ion-input>
-      </ion-item>
-      <ion-button expand="full" (click)="onGetAsistentes(curso.id)">Ver Asistentes</ion-button>
-    </ion-card-content>
-  </ion-card>
-
-  <!-- Mostrar los asistentes -->
-  <ion-list>
-    <ion-item *ngFor="let asistente of asistentes">
-      <ion-label>
-        <h2>{{ asistente.nombre_estudiante }}</h2>
-        <p>Hora de Asistencia: {{ asistente.hora_asistencia }}</p>
-        <p>Presente: {{ asistente.presente ? 'Sí' : 'No' }}</p>
       </ion-label>
     </ion-item>
   </ion-list>

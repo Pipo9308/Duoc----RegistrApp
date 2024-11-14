@@ -31,7 +31,7 @@ export class RegisterPage {
     }
 
     // Hacer la solicitud para registrar al usuario
-    this.authService.registerUser(this.codigo, this.run, this.nombre, this.apellido, this.correo, this.perfil).subscribe(
+    /*this.authService.registerUser(this.codigo, this.run, this.nombre, this.apellido, this.correo, this.perfil).subscribe(
       async (response) => {
         const alert = await this.alertCtrl.create({
           header: 'Éxito',
@@ -49,6 +49,6 @@ export class RegisterPage {
         });
         await alert.present();
       }
-    );
+    ); */
   }
 }
