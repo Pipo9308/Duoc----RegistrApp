@@ -1,0 +1,42 @@
+<!-- main-page.html -->
+<ion-menu side="start" menuId="first" contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>RegistrApp</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-list>
+      <ion-item routerLink="/home">Cerrar sesión</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Inicio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="main-content" [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Main Page</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <!-- Aquí va el contenido de la página principal -->
+  <div class="ion-padding">
+    <h1>Bienvenido, {{ userName }}</h1> <!-- Muestra el nombre del usuario -->
+  </div>
+</ion-content>
+
+<div class="btn-container">
+  <ion-button [routerLink]="['/pagina-qr']"> Escanear QR</ion-button> 
+</div>
+
+<div class="btn-container">
+  <ion-button [routerLink]="['/cursos']"> Cursos</ion-button> 
+</div>

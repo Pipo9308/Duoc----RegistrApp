@@ -1,0 +1,97 @@
+#container {
+  text-align: center;
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40%;
+  transform: translateY(-50%);
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+
+  color: #8c8c8c;
+
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+
+.link-container {
+  margin-top: 10px;
+  text-align: center; 
+}
+
+.checkbox-container {
+  margin-top: 10px;
+  text-align: center; 
+}
+
+.custom-item {
+  --inner-padding-end: 0px;
+  --inner-padding-start: 0px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.center-text {
+  width: 100%;
+  text-align: center;
+}
+
+.icon-container {
+  margin-top: -30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+}
+
+.welcome-container {
+  margin-top: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+}
+
+/* Establece el fondo de toda la página */
+ion-content {
+  position: relative;
+  height: 100vh;
+  --overflow: hidden; 
+  padding: 0; 
+  margin: 0; 
+}
+
+.background-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/img/moradobackground.svg');
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-position: top center;
+  z-index: -1;
+}
+
+.unified-container{
+  margin-top: -20%;
+}
+
+
+
+
+

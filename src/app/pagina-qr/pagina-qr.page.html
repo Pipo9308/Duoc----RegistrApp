@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Escanear QR</ion-title>
+    <!-- Boton de regreso -->
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+  <img src="assets/img/scan-qr.webp" alt="">
+
+    <h6 class="scan-label"> Escanea un codigo QR </h6>
+    <ion-button (click)="scan()" class="submit" expand="block" >
+      Escanear
+      <ion-icon slot="end" name="scan-outline"></ion-icon>
+    </ion-button>
+  <ion-list>
+    <ion-item *ngIf="result">
+      {{result}}
+    </ion-item>
+  </ion-list>
+  
+</ion-content>
+

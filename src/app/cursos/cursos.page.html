@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cursos</ion-title>
+    <!-- Boton de regreso -->
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <!-- Mostrar la lista de cursos -->
+  <ion-list>
+    <ion-item *ngFor="let curso of cursos" (click)="loadClases(curso.id)">
+      <ion-label>
+        <h2>{{ curso.nombre }}</h2>
+        <p>{{ curso.descripcion }}</p>
+      </ion-label>
+      <!-- Botón de Crear Clase -->
+      <ion-button expand="full" (click)="onCreateClase(curso.id)">Crear Clase</ion-button>
+    </ion-item>
+  </ion-list>
+
+  <!-- Formulario para crear una nueva clase -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Crear Nueva Clase</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Fecha</ion-label>
+        <ion-input [(ngModel)]="fechaClase" type="date"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Hora de Inicio</ion-label>
+        <ion-input [(ngModel)]="horaInicio" type="time"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Hora de Término</ion-label>
+        <ion-input [(ngModel)]="horaTermino" type="time"></ion-input>
+      </ion-item>
+      <ion-button expand="full" (click)="onCreateClase(curso.id)">Crear Clase</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Mostrar las clases del curso -->
+  <ion-list>
+    <ion-item *ngFor="let clase of clases">
+      <ion-label>
+        <h2>{{ clase.nombre }}</h2>
+        <p>{{ clase.fecha }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Formulario para obtener los asistentes -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Obtener Asistentes</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Código de Clase</ion-label>
+        <ion-input [(ngModel)]="claseCodigo"></ion-input>
+      </ion-item>
+      <ion-button expand="full" (click)="onGetAsistentes(curso.id)">Ver Asistentes</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Mostrar los asistentes -->
+  <ion-list>
+    <ion-item *ngFor="let asistente of asistentes">
+      <ion-label>
+        <h2>{{ asistente.nombre_estudiante }}</h2>
+        <p>Hora de Asistencia: {{ asistente.hora_asistencia }}</p>
+        <p>Presente: {{ asistente.presente ? 'Sí' : 'No' }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

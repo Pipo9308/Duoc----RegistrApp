@@ -1,0 +1,8 @@
+// For information on how to create your own theme, please see:
+// http://ionicframework.com/docs/theming/
+/* Define el esquema de colores personalizado para los botones warning */
+:root {
+    --ion-color-warning: #3e1787; /* Color principal para los botones sólidos */
+    --ion-color-warning-rgb: 255, 184, 0;
+    --ion-color-warning-contrast: #fafafa; /* Color del texto en botones sólidos */
+  }

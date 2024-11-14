@@ -1,0 +1,20 @@
+<ion-content [fullscreen]="true">
+  <div class="background-container"></div> <!-- Fondo SVG -->
+  <div id="container">
+    <!-- Logo centrado -->
+    <div class="icon-container">
+      <img src="assets/img/logo_morado.png" alt="logo-registrapp" class="centered-icon">
+    </div>
+    <div class="unified-container">
+      <!-- Mensaje de bienvenida -->
+      <div class="welcome-container">
+        <h1>¡Bienvenido!</h1>
+      </div>
+      <!-- Botones login y registro -->
+      <div>
+        <ion-button shape="round" color="warning" id="btn-login" routerLink="/login">Iniciar Sesión</ion-button>
+        <ion-button shape="round" fill="outline" color="warning" id="btn-registro" routerLink="/register">Registrarse</ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>

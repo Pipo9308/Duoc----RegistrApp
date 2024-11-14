@@ -1,0 +1,54 @@
+<ion-content [fullscreen]="true">
+  <div class="background-container"></div> <!-- Fondo SVG -->
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <!-- Boton de regreso -->
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    <div class="icon-container">
+      <img src="assets/img/logo_morado.png" alt="logo-registrapp" class="centered-icon">
+    </div>
+
+    <div class="form-container">
+      <ion-list>
+        <ion-list>
+          <ion-item lines="none" class="custom-item">
+            <h1 class="center-text">Iniciar sesión</h1>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">E-mail</ion-label>
+            <ion-input type="email" placeholder="" [(ngModel)]="username" (keydown.enter)="login()">
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input type="password" placeholder="" [(ngModel)]="password" (keydown.enter)="login()">
+            </ion-input>
+          </ion-item>
+
+          <div class="checkbox-container">
+            <ion-checkbox>Recordar contraseña</ion-checkbox>
+          </div>
+
+          <div class="link-container">
+            <a routerLink="/password-recovery" class="classic-anchor">¿Olvidaste tu contraseña?</a>
+          </div>
+
+          <div class="btn-container">
+            <ion-button size="default" id="btn-ingresar" shape="round" color="warning" (click)="login()">
+              Ingresar
+            </ion-button>
+          </div>
+
+        </ion-list>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>

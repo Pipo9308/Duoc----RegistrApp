@@ -1,0 +1,16 @@
+/* Asigna transparencia a los elementos en ion-list */
+ion-menu ion-list {
+    background: transparent !important; /* Asegura que la lista sea transparente */
+  }
+  
+  /* Estilo para los items en la lista del menú */
+  ion-menu ion-item {
+    --background: transparent !important; /* Hace que los elementos de la lista sean transparentes */
+    --border-color: transparent !important; /* Elimina el color del borde */
+    --inner-padding-start: 0 !important; /* Elimina el padding interno si es necesario */
+    --inner-padding-end: 0 !important; /* Elimina el padding interno si es necesario */
+    border: none !important; /* Elimina los bordes */
+    --box-shadow: none !important; /* Elimina cualquier sombra alrededor del item */
+  }
+
+  
