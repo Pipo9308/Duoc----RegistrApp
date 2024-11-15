@@ -15,6 +15,11 @@ export class CursosPage implements OnInit {
   institucionCurso: string = '';
   descripcionCurso: string = '';
 
+  // Variables para la clase
+  fechaClase: string = '';
+  horaInicioClase: string = '';
+  horaTerminoClase: string = '';
+
   constructor(
     private cursosService: CursosService,
     private alertCtrl: AlertController
@@ -25,7 +30,6 @@ export class CursosPage implements OnInit {
   }
 
   loadCursos() {
-    // Llamar a getCursos sin pasar el argumento userEmail
     this.cursosService.getCursos().subscribe(
       (response) => {
         if (response.message === 'Success') {
@@ -49,8 +53,8 @@ export class CursosPage implements OnInit {
               buttons: ['OK']
             });
             await alert.present();
-            this.resetCursoForm();  // Limpiar formulario
-            this.loadCursos();  // Recargar la lista de cursos
+            this.resetCursoForm();
+            this.loadCursos();
           }
         },
         async (error) => {
@@ -68,11 +72,46 @@ export class CursosPage implements OnInit {
     }
   }
 
+  onCreateClase(cursoId: number) {
+    if (this.fechaClase && this.horaInicioClase && this.horaTerminoClase) {
+      this.cursosService.createClase(cursoId, this.fechaClase, this.horaInicioClase, this.horaTerminoClase).subscribe(
+        async (response) => {
+          if (response.message === 'Clase creada exitosamente') {
+            const alert = await this.alertCtrl.create({
+              header: 'Éxito',
+              message: 'Clase creada exitosamente',
+              buttons: ['OK']
+            });
+            await alert.present();
+            this.resetClaseForm(); // Limpiar formulario de clase
+          }
+        },
+        async (error) => {
+          console.error('Error al crear la clase', error);
+          const alert = await this.alertCtrl.create({
+            header: 'Error',
+            message: 'Hubo un error al crear la clase',
+            buttons: ['OK']
+          });
+          await alert.present();
+        }
+      );
+    } else {
+      this.showErrorAlert('Por favor, complete todos los campos de la clase');
+    }
+  }
+
   resetCursoForm() {
     this.nombreCurso = '';
     this.siglaCurso = '';
     this.institucionCurso = '';
     this.descripcionCurso = '';
+  }
+
+  resetClaseForm() {
+    this.fechaClase = '';
+    this.horaInicioClase = '';
+    this.horaTerminoClase = '';
   }
 
   async showErrorAlert(message: string) {
@@ -84,4 +123,3 @@ export class CursosPage implements OnInit {
     await alert.present();
   }
 }
-

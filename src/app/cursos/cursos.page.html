@@ -1,7 +1,6 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Cursos</ion-title>
-    <!-- Boton de regreso -->
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
@@ -9,12 +8,12 @@
 </ion-header>
 
 <ion-content>
-  <!-- Formulario para crear un nuevo curso -->
   <ion-card>
     <ion-card-header>
       <ion-card-title>Nuevo Curso</ion-card-title>
     </ion-card-header>
     <ion-card-content>
+      <!-- Formulario para crear un nuevo curso -->
       <ion-item>
         <ion-label position="floating">Nombre del Curso</ion-label>
         <ion-input [(ngModel)]="nombreCurso"></ion-input>
@@ -35,13 +34,34 @@
     </ion-card-content>
   </ion-card>
 
-  <!-- Lista de cursos del usuario -->
   <ion-list>
     <ion-item *ngFor="let curso of cursos">
       <ion-label>
         <h2>{{ curso.nombre }}</h2>
         <p>{{ curso.descripcion }}</p>
       </ion-label>
+      <ion-button (click)="onCreateClase(curso.id)">Crear Clase</ion-button>
     </ion-item>
   </ion-list>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Nueva Clase</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <!-- Formulario para crear una nueva clase -->
+      <ion-item>
+        <ion-label position="floating">Fecha</ion-label>
+        <ion-input type="date" [(ngModel)]="fechaClase"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Hora de Inicio</ion-label>
+        <ion-input type="time" [(ngModel)]="horaInicioClase"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Hora de Término</ion-label>
+        <ion-input type="time" [(ngModel)]="horaTerminoClase"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

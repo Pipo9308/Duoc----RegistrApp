@@ -1,3 +1,4 @@
+// auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -22,6 +23,14 @@ export class AuthService {
           this.setUserName(response.data.correo);  // Guarda el correo del usuario
         }
       }),
+      catchError(this.handleError)
+    );
+  }
+
+  // Método para recuperar la contraseña
+  recoverPassword(correo: string): Observable<any> {
+    const body = { correo };
+    return this.http.post<any>(`${this.apiUrl}/auth/recuperar`, body).pipe(
       catchError(this.handleError)
     );
   }

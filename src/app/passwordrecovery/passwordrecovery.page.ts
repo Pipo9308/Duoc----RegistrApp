@@ -1,3 +1,4 @@
+// passwordrecovery.page.ts
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { AlertController } from '@ionic/angular';
@@ -26,8 +27,23 @@ export class PasswordrecoveryPage implements OnInit {
       return;
     }
 
-    console.log('Correo enviado:', this.correo); // Para verificar el correo antes de la solicitud
-
-    
+    this.authService.recoverPassword(this.correo).subscribe(
+      async (response) => {
+        const alert = await this.alertCtrl.create({
+          header: 'Éxito',
+          message: response.message || 'Solicitud de recuperación enviada correctamente.',
+          buttons: ['OK']
+        });
+        await alert.present();
+      },
+      async (error) => {
+        const alert = await this.alertCtrl.create({
+          header: 'Error',
+          message: error.error.message || 'Ocurrió un error durante la recuperación.',
+          buttons: ['OK']
+        });
+        await alert.present();
+      }
+    );
   }
 }
