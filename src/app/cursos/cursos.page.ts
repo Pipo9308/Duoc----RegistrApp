@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CursosService } from '../services/cursos.service';
 import { AlertController, ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';  // Importar Router
 
 @Component({
   selector: 'app-cursos',
@@ -22,19 +23,35 @@ export class CursosPage implements OnInit {
   constructor(
     private cursosService: CursosService,
     private alertCtrl: AlertController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private router: Router  // Inyectar Router
   ) {}
 
   ngOnInit() {
     this.loadCursos();
   }
 
-  // Cargar los cursos desde el servicio
+  // Cargar los cursos y sus clases
   loadCursos() {
     this.cursosService.getCursos().subscribe(
       (response) => {
         if (response.message === 'Success') {
           this.cursos = response.cursos;
+
+          // Cargar las clases para cada curso
+          this.cursos.forEach((curso) => {
+            this.cursosService.getClases(curso.id).subscribe(
+              (clasesResponse) => {
+                if (clasesResponse.message === 'Success') {
+                  curso.clases = clasesResponse.clases;
+                }
+              },
+              (error) => {
+                console.error(`Error al obtener las clases del curso ${curso.id}`, error);
+                curso.clases = []; // Asignar un array vacío si ocurre un error
+              }
+            );
+          });
         }
       },
       (error) => {

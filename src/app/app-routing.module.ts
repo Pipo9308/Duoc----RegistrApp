@@ -26,7 +26,8 @@ const routes: Routes = [
   {
     path: 'main-page',
     loadChildren: () => import('./main-page/main-page.module').then( m => m.MainPagePageModule)
-  },  {
+  },
+  {
     path: 'pagina-qr',
     loadChildren: () => import('./pagina-qr/pagina-qr.module').then( m => m.PaginaQrPageModule)
   },
@@ -39,11 +40,9 @@ const routes: Routes = [
     loadChildren: () => import('./cursos/cursos.module').then( m => m.CursosPageModule)
   },
   {
-    path: 'pagina-curso',
+    path: 'pagina-curso/:id',
     loadChildren: () => import('./pagina-curso/pagina-curso.module').then( m => m.PaginaCursoPageModule)
-  },
-
-
+  }
 ];
 
 @NgModule({

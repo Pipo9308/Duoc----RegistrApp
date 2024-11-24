@@ -41,8 +41,27 @@ export class CursosService {
     );
   }
 
-  private handleError(error: any) {
-    console.error('Error en el servicio', error);
-    return throwError(error);
-  }
+// Método para obtener un curso por su ID
+getCurso(cursoId: number): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/cursos/${cursoId}`).pipe(
+    catchError(this.handleError)
+  );
+}
+
+// Método para obtener las clases de un curso
+getClases(cursoId: number): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/cursos/${cursoId}/clase`).pipe(
+    catchError(this.handleError)
+  );
+}
+
+// Manejo de errores
+private handleError(error: any): Observable<any> {
+  console.error(error);
+  throw error; // Maneja el error de acuerdo a tus necesidades
+}
+
+getAsistenciaClase(cursoId: number, claseCode: string) {
+  return this.http.get<any>(`/api/v1/cursos/${cursoId}/clase/${claseCode}`);
+}
 }
