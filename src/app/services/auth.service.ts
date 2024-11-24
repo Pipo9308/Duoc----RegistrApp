@@ -1,7 +1,6 @@
-// auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -9,7 +8,8 @@ import { catchError, tap } from 'rxjs/operators';
 })
 export class AuthService {
   private apiUrl = 'https://www.presenteprofe.cl/api/v1';
-  private userName: string | null = null;
+  private userNameSubject = new BehaviorSubject<string | null>(null);
+  userName$ = this.userNameSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -47,12 +47,7 @@ export class AuthService {
 
   // Guardar el nombre de usuario
   setUserName(name: string) {
-    this.userName = name;
-  }
-
-  // Obtener el nombre de usuario
-  getUserName(): string | null {
-    return this.userName;
+    this.userNameSubject.next(name);
   }
 
   // Manejo de errores

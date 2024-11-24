@@ -1,67 +1,152 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Cursos</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
+    <ion-title>Cursos</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card>
+<ion-content class="ion-padding">
+  <!-- Tarjeta para crear un nuevo curso -->
+  <ion-card class="shadow-card">
     <ion-card-header>
-      <ion-card-title>Nuevo Curso</ion-card-title>
+      <ion-card-title class="card-title">Crear Nuevo Curso</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <!-- Formulario para crear un nuevo curso -->
-      <ion-item>
+      <ion-item lines="full">
         <ion-label position="floating">Nombre del Curso</ion-label>
-        <ion-input [(ngModel)]="nombreCurso"></ion-input>
+        <ion-input [(ngModel)]="nombreCurso" required></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item lines="full">
         <ion-label position="floating">Sigla</ion-label>
-        <ion-input [(ngModel)]="siglaCurso"></ion-input>
+        <ion-input [(ngModel)]="siglaCurso" required></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item lines="full">
         <ion-label position="floating">Institución</ion-label>
-        <ion-input [(ngModel)]="institucionCurso"></ion-input>
+        <ion-input [(ngModel)]="institucionCurso" required></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item lines="full">
         <ion-label position="floating">Descripción</ion-label>
-        <ion-input [(ngModel)]="descripcionCurso"></ion-input>
+        <ion-textarea [(ngModel)]="descripcionCurso" auto-grow="true"></ion-textarea>
       </ion-item>
-      <ion-button expand="full" (click)="onCreateCurso()">Crear Curso</ion-button>
+      <ion-button expand="block" color="primary" (click)="onCreateCurso()">
+        Crear Curso
+      </ion-button>
     </ion-card-content>
   </ion-card>
 
-  <ion-list>
-    <ion-item *ngFor="let curso of cursos">
-      <ion-label>
-        <h2>{{ curso.nombre }}</h2>
-        <p>{{ curso.descripcion }}</p>
-      </ion-label>
-      <ion-button (click)="onCreateClase(curso.id)">Crear Clase</ion-button>
-    </ion-item>
-  </ion-list>
-
-  <ion-card>
+  <!-- Sección de Cursos Existentes -->
+  <ion-card class="shadow-card">
     <ion-card-header>
-      <ion-card-title>Nueva Clase</ion-card-title>
+      <ion-card-title class="card-title">Cursos Existentes</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <!-- Formulario para crear una nueva clase -->
-      <ion-item>
+      <ion-list>
+        <ion-list-header>
+          <ion-label>Cursos Disponibles</ion-label>
+        </ion-list-header>
+
+        <ion-item *ngFor="let curso of cursos" class="curso-item">
+          <ion-label>
+            <h2>{{ curso.nombre }}</h2>
+            <p>{{ curso.descripcion }}</p>
+          </ion-label>
+          <!-- Botón para crear una clase dentro de cada curso -->
+          <ion-button fill="outline" color="secondary" (click)="onCreateClase(curso.id)" class="curso-button">
+            <ion-icon slot="start" name="create-outline"></ion-icon> Crear Clase
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Tarjeta para crear una nueva clase -->
+  <ion-card class="shadow-card">
+    <ion-card-header>
+      <ion-card-title class="card-title">Crear Nueva Clase</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <!-- Solo un ion-datetime para la fecha -->
+      <ion-item lines="full">
         <ion-label position="floating">Fecha</ion-label>
-        <ion-input type="date" [(ngModel)]="fechaClase"></ion-input>
+        <ion-datetime display-format="DD-MM-YYYY" [(ngModel)]="fechaClase"></ion-datetime>
       </ion-item>
-      <ion-item>
+      
+      <!-- Select para hora de inicio -->
+      <ion-item lines="full">
         <ion-label position="floating">Hora de Inicio</ion-label>
-        <ion-input type="time" [(ngModel)]="horaInicioClase"></ion-input>
+        <ion-select [(ngModel)]="horaInicioClase" interface="popover">
+          <!-- Horarios de todo el día con intervalos de 30 minutos -->
+          <ion-select-option value="00:00"><ion-icon name="time-outline"></ion-icon> 00:00</ion-select-option>
+          <ion-select-option value="00:30"><ion-icon name="time-outline"></ion-icon> 00:30</ion-select-option>
+          <ion-select-option value="01:00"><ion-icon name="time-outline"></ion-icon> 01:00</ion-select-option>
+          <ion-select-option value="01:30"><ion-icon name="time-outline"></ion-icon> 01:30</ion-select-option>
+          <ion-select-option value="02:00"><ion-icon name="time-outline"></ion-icon> 02:00</ion-select-option>
+          <ion-select-option value="02:30"><ion-icon name="time-outline"></ion-icon> 02:30</ion-select-option>
+          <ion-select-option value="03:00"><ion-icon name="time-outline"></ion-icon> 03:00</ion-select-option>
+          <ion-select-option value="03:30"><ion-icon name="time-outline"></ion-icon> 03:30</ion-select-option>
+          <ion-select-option value="04:00"><ion-icon name="time-outline"></ion-icon> 04:00</ion-select-option>
+          <ion-select-option value="04:30"><ion-icon name="time-outline"></ion-icon> 04:30</ion-select-option>
+          <ion-select-option value="05:00"><ion-icon name="time-outline"></ion-icon> 05:00</ion-select-option>
+          <ion-select-option value="05:30"><ion-icon name="time-outline"></ion-icon> 05:30</ion-select-option>
+          <ion-select-option value="06:00"><ion-icon name="time-outline"></ion-icon> 06:00</ion-select-option>
+          <ion-select-option value="06:30"><ion-icon name="time-outline"></ion-icon> 06:30</ion-select-option>
+          <ion-select-option value="07:00"><ion-icon name="time-outline"></ion-icon> 07:00</ion-select-option>
+          <ion-select-option value="07:30"><ion-icon name="time-outline"></ion-icon> 07:30</ion-select-option>
+          <ion-select-option value="08:00"><ion-icon name="time-outline"></ion-icon> 08:00</ion-select-option>
+          <ion-select-option value="08:30"><ion-icon name="time-outline"></ion-icon> 08:30</ion-select-option>
+          <ion-select-option value="09:00"><ion-icon name="time-outline"></ion-icon> 09:00</ion-select-option>
+          <ion-select-option value="09:30"><ion-icon name="time-outline"></ion-icon> 09:30</ion-select-option>
+          <ion-select-option value="10:00"><ion-icon name="time-outline"></ion-icon> 10:00</ion-select-option>
+          <ion-select-option value="10:30"><ion-icon name="time-outline"></ion-icon> 10:30</ion-select-option>
+          <ion-select-option value="11:00"><ion-icon name="time-outline"></ion-icon> 11:00</ion-select-option>
+          <ion-select-option value="11:30"><ion-icon name="time-outline"></ion-icon> 11:30</ion-select-option>
+          <ion-select-option value="12:00"><ion-icon name="time-outline"></ion-icon> 12:00</ion-select-option>
+          <ion-select-option value="12:30"><ion-icon name="time-outline"></ion-icon> 12:30</ion-select-option>
+          <ion-select-option value="13:00"><ion-icon name="time-outline"></ion-icon> 13:00</ion-select-option>
+          <ion-select-option value="13:30"><ion-icon name="time-outline"></ion-icon> 13:30</ion-select-option>
+          <ion-select-option value="14:00"><ion-icon name="time-outline"></ion-icon> 14:00</ion-select-option>
+          <ion-select-option value="14:30"><ion-icon name="time-outline"></ion-icon> 14:30</ion-select-option>
+          <ion-select-option value="15:00"><ion-icon name="time-outline"></ion-icon> 15:00</ion-select-option>
+          <ion-select-option value="15:30"><ion-icon name="time-outline"></ion-icon> 15:30</ion-select-option>
+          <ion-select-option value="16:00"><ion-icon name="time-outline"></ion-icon> 16:00</ion-select-option>
+          <ion-select-option value="16:30"><ion-icon name="time-outline"></ion-icon> 16:30</ion-select-option>
+          <ion-select-option value="17:00"><ion-icon name="time-outline"></ion-icon> 17:00</ion-select-option>
+          <ion-select-option value="17:30"><ion-icon name="time-outline"></ion-icon> 17:30</ion-select-option>
+          <ion-select-option value="18:00"><ion-icon name="time-outline"></ion-icon> 18:00</ion-select-option>
+          <ion-select-option value="18:30"><ion-icon name="time-outline"></ion-icon> 18:30</ion-select-option>
+          <ion-select-option value="19:00"><ion-icon name="time-outline"></ion-icon> 19:00</ion-select-option>
+          <ion-select-option value="19:30"><ion-icon name="time-outline"></ion-icon> 19:30</ion-select-option>
+          <ion-select-option value="20:00"><ion-icon name="time-outline"></ion-icon> 20:00</ion-select-option>
+          <ion-select-option value="20:30"><ion-icon name="time-outline"></ion-icon> 20:30</ion-select-option>
+          <ion-select-option value="21:00"><ion-icon name="time-outline"></ion-icon> 21:00</ion-select-option>
+          <ion-select-option value="21:30"><ion-icon name="time-outline"></ion-icon> 21:30</ion-select-option>
+          <ion-select-option value="22:00"><ion-icon name="time-outline"></ion-icon> 22:00</ion-select-option>
+          <ion-select-option value="22:30"><ion-icon name="time-outline"></ion-icon> 22:30</ion-select-option>
+          <ion-select-option value="23:00"><ion-icon name="time-outline"></ion-icon> 23:00</ion-select-option>
+          <ion-select-option value="23:30"><ion-icon name="time-outline"></ion-icon> 23:30</ion-select-option>
+        </ion-select>
       </ion-item>
-      <ion-item>
+      
+      <!-- Select para hora de término -->
+      <ion-item lines="full">
         <ion-label position="floating">Hora de Término</ion-label>
-        <ion-input type="time" [(ngModel)]="horaTerminoClase"></ion-input>
+        <ion-select [(ngModel)]="horaTerminoClase" interface="popover">
+          <!-- Repetir las mismas opciones para la hora de término -->
+          <!-- Puedes utilizar las mismas opciones que para hora de inicio -->
+          <!-- O ajustarlas según necesites -->
+          <ion-select-option value="00:00"><ion-icon name="time-outline"></ion-icon> 00:00</ion-select-option>
+          <ion-select-option value="00:30"><ion-icon name="time-outline"></ion-icon> 00:30</ion-select-option>
+          <ion-select-option value="01:00"><ion-icon name="time-outline"></ion-icon> 01:00</ion-select-option>
+          <ion-select-option value="01:30"><ion-icon name="time-outline"></ion-icon> 01:30</ion-select-option>
+          <!-- Continúa el resto de opciones hasta las 23:30 -->
+        </ion-select>
       </ion-item>
+
+      <ion-button expand="block" color="secondary" (click)="onSaveClase()">
+        <ion-icon slot="start" name="save-outline"></ion-icon> Guardar Clase
+      </ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>
