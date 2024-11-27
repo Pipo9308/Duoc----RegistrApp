@@ -65,3 +65,4 @@ getAsistenciaClase(cursoId: number, claseCode: string) {
   return this.http.get<any>(`/api/v1/cursos/${cursoId}/clase/${claseCode}`);
 }
 }
+

@@ -6,7 +6,6 @@
   </ion-header>
   <ion-content class="ion-padding">
     <ion-list>
-      <!-- Nombre del usuario en el menú lateral -->
       <ion-item lines="none">
         <ion-icon slot="start" name="person-circle-outline" color="primary"></ion-icon>
         <ion-label>Hola, {{ userName }}</ion-label>
@@ -14,7 +13,7 @@
       <ion-item routerLink="/home" detail>
         <ion-icon slot="start" name="log-out-outline"></ion-icon>
         <ion-label>Cerrar sesión</ion-label>
-      </ion-item>
+      </ion-item> <!-- Aquí estaba el error de cierre, lo moví correctamente -->
     </ion-list>
   </ion-content>
 </ion-menu>
@@ -24,18 +23,17 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Inicio Estudiantes Duoc</ion-title>
+    <ion-title>Inicio Estudiante RegistrApp</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content id="main-content" [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Main Page Estudiante</ion-title>
+      <ion-title size="large">Main Page</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <!-- Tarjeta de bienvenida con el nombre del usuario -->
   <ion-card class="welcome-card">
     <ion-card-header>
       <ion-card-title>Bienvenido</ion-card-title>
@@ -46,23 +44,48 @@
     </ion-card-content>
   </ion-card>
 
-  <!-- Botones de funcionalidades -->
-  <ion-grid>
-    <ion-row class="ion-justify-content-center">
-      <ion-col size="12" size-md="6">
-        <ion-button expand="block" color="primary" [routerLink]="['/pagina-qr']">
-          <ion-icon slot="start" name="qr-code-outline"></ion-icon>
-          Escanear QR
-        </ion-button>
-      </ion-col>
-    </ion-row>
-    <ion-row class="ion-justify-content-center">
-      <ion-col size="12" size-md="6">
-        <ion-button expand="block" color="secondary" [routerLink]="['/cursos']">
-          <ion-icon slot="start" name="book-outline"></ion-icon>
-          Cursos
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Mis Cursos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="ion-padding">
+    <ion-card class="shadow-card">
+      <ion-card-header>
+        <ion-card-title class="card-title">Cursos Existentes</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-list>
+          <ion-list-header>
+            <ion-label>Cursos Disponibles</ion-label>
+          </ion-list-header>
+
+          <ion-item *ngFor="let curso of cursos" class="curso-item">
+            <ion-label>
+              <h2>{{ curso.nombre }}</h2>
+              <p>{{ curso.descripcion }}</p>
+            </ion-label>
+
+            <!-- Mostrar clases si existen -->
+            <ion-list *ngIf="curso.clases && curso.clases.length > 0">
+              <ion-item *ngFor="let clase of curso.clases">
+                <ion-label>
+                  <h3>{{ clase.fecha }}</h3>
+                  <p>{{ clase.hora_inicio }} - {{ clase.hora_termino }}</p>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+
+            <!-- Botones para ver asistencia y crear clase -->
+            
+            <ion-button [routerLink]="['/curso-estudiante', curso.id]" fill="outline" color="secondary" class="curso-button">
+              <ion-icon slot="start" name="create-outline"></ion-icon> Ver Clases
+            </ion-button>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
 </ion-content>
