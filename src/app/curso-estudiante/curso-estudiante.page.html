@@ -1,3 +1,4 @@
+<!-- curso-estudiante.page.html -->
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -11,7 +12,7 @@
   <!-- Detalles del curso -->
   <ion-card *ngIf="curso">
     <ion-card-header>
-      <ion-card-title>Detalles del Cursoss</ion-card-title>
+      <ion-card-title>Detalles del Curso</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <p>{{ curso.descripcion }}</p>
@@ -32,6 +33,10 @@
             <p>Hora de inicio: {{ clase.hora_inicio }}</p>
             <p>Hora de término: {{ clase.hora_termino }}</p>
           </ion-label>
+          <!-- Botón para registrar asistencia -->
+          <ion-button (click)="registrarAsistencia(clase.codigo)" color="primary">
+            Registrar Asistencia
+          </ion-button>
         </ion-item>
       </ion-list>
     </ion-card-content>
@@ -46,9 +51,10 @@
       <p>Este curso aún no tiene clases programadas.</p>
     </ion-card-content>
   </ion-card>
+
+  <!-- Botón para ver la asistencia -->
   <ion-button (click)="verAsistencia()" fill="outline" color="primary">
     <ion-icon slot="start" name="clipboard-outline"></ion-icon>
     Ver Asistencia
   </ion-button>
- 
 </ion-content>

@@ -15,4 +15,9 @@ export class AsistenciaService {
   obtenerAsistenciaCurso(cursoId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}${cursoId}`);
   }
+
+    // Método para obtener la asistencia del curso
+    getAsistencia(cursoId: number): Observable<any> {
+      return this.http.get<any>(`${this.apiUrl}/${cursoId}`);
+    }
 }

@@ -94,7 +94,24 @@ export class CursoEstudiantePage implements OnInit {
   }
 
   verAsistencia() {
-    // Redirigir a la página de asistencia con el ID del curso
-    this.router.navigate(['/asistencia', this.cursoId]);
+    // Redirigir a la página de asistencia-estudiante
+    this.router.navigate(['/asistencia-estudiante']);
   }
+
+  registrarAsistencia(code: string) {
+    this.cursosService.registerAsistenciaClase(code).subscribe(
+      (response) => {
+        if (response.message === 'Asistencia registrada con éxito') {
+          this.presentToast('Asistencia registrada con éxito');
+        } else if (response.message === 'Ya has registrado tu asistencia') {
+          this.presentToast('Ya has registrado tu asistencia');
+        }
+      },
+      (error) => {
+        console.error('Error al registrar la asistencia', error);
+        this.showAlert('Error', 'No se pudo registrar la asistencia');
+      }
+    );
+  
+}
 }
