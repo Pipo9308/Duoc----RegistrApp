@@ -42,7 +42,11 @@ const routes: Routes = [
   {
     path: 'pagina-curso/:id',
     loadChildren: () => import('./pagina-curso/pagina-curso.module').then( m => m.PaginaCursoPageModule)
+  },  {
+    path: 'main-estudiante',
+    loadChildren: () => import('./main-estudiante/main-estudiante.module').then( m => m.MainEstudiantePageModule)
   }
+
 ];
 
 @NgModule({

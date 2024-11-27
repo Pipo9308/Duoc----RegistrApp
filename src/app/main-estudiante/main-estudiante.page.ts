@@ -1,12 +1,13 @@
+
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 
 @Component({
-  selector: 'app-main-page-docente',
-  templateUrl: './main-page.page.html',
-  styleUrls: ['./main-page.page.scss'],
+  selector: 'app-main-page-estudiante',
+  templateUrl: './main-estudiante.page.html',
+  styleUrls: ['./main-estudiante.page.scss'],
 })
-export class MainPagePage implements OnInit {
+export class MainEstudiantePage  implements OnInit {
   userName: string | null = null;
 
   constructor(private authService: AuthService) { }
