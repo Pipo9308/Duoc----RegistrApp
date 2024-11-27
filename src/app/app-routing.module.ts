@@ -27,10 +27,7 @@ const routes: Routes = [
     path: 'main-page',
     loadChildren: () => import('./main-page/main-page.module').then( m => m.MainPagePageModule)
   },
-  {
-    path: 'pagina-qr',
-    loadChildren: () => import('./pagina-qr/pagina-qr.module').then( m => m.PaginaQrPageModule)
-  },
+  
   {
     path: 'update-password',
     loadChildren: () => import('./update-password/update-password.module').then( m => m.UpdatePasswordPageModule)
@@ -42,10 +39,15 @@ const routes: Routes = [
   {
     path: 'pagina-curso/:id',
     loadChildren: () => import('./pagina-curso/pagina-curso.module').then( m => m.PaginaCursoPageModule)
-  },  {
+  },
+  {
     path: 'main-estudiante',
     loadChildren: () => import('./main-estudiante/main-estudiante.module').then( m => m.MainEstudiantePageModule)
+  },  {
+    path: 'pagina-qr',
+    loadChildren: () => import('./pagina-qr/pagina-qr.module').then( m => m.PaginaQrPageModule)
   }
+
 
 ];
 
