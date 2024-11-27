@@ -11,7 +11,8 @@ import { Router } from '@angular/router'; // Importamos el Router
 })
 export class MainEstudiantePage implements OnInit {
   userName: string | null = null;
-  cursos: any[] = [];
+  cursosMatriculados: any[] = []; // Propiedad para cursos matriculados
+  cursosDisponibles: any[] = []; // Propiedad para cursos disponibles
 
   constructor(
     private authService: AuthService,
@@ -24,32 +25,43 @@ export class MainEstudiantePage implements OnInit {
     this.authService.userName$.subscribe(name => {
       this.userName = name;
     });
-    this.loadCursos();
+    this.loadCursosMatriculados(); // Cargar cursos matriculados
+    this.loadCursosDisponibles(); // Cargar cursos disponibles
   }
 
-  loadCursos() {
+  loadCursosMatriculados() {
+    const userEmail = this.userName; // Asegúrate de que esta variable contiene el correo electrónico correcto del estudiante.
+    if (userEmail) {
+      this.cursosService.getCursosMatriculados(userEmail).subscribe(
+        (response) => {
+          console.log('Respuesta de Cursos Matriculados:', response); // Verifica que la respuesta sea la esperada
+          if (response.message === 'Success') {
+            this.cursosMatriculados = response.cursos; // Asigna los cursos matriculados a la variable
+          } else {
+            this.showAlert('Error', 'No se pudieron obtener los cursos matriculados');
+          }
+        },
+        (error) => {
+          console.error('Error al obtener los cursos matriculados', error);
+          this.showAlert('Error', 'No se pudo cargar la lista de cursos matriculados');
+        }
+      );
+    }
+  }
+
+  // Cargar cursos disponibles (según el comportamiento anterior)
+  loadCursosDisponibles() {
     this.cursosService.getCursos().subscribe(
       (response) => {
         if (response.message === 'Success') {
-          this.cursos = response.cursos;
-          this.cursos.forEach((curso) => {
-            this.cursosService.getClases(curso.id).subscribe(
-              (clasesResponse) => {
-                if (clasesResponse.message === 'Success') {
-                  curso.clases = clasesResponse.clases;
-                }
-              },
-              (error) => {
-                console.error(`Error al obtener las clases del curso ${curso.id}`, error);
-                curso.clases = [];
-              }
-            );
-          });
+          this.cursosDisponibles = response.cursos;
+        } else {
+          this.showAlert('Error', 'No se pudieron obtener los cursos disponibles');
         }
       },
       (error) => {
-        console.error('Error al obtener los cursos', error);
-        this.showAlert('Error', 'No se pudo cargar los cursos');
+        console.error('Error al obtener los cursos disponibles', error);
+        this.showAlert('Error', 'No se pudo cargar la lista de cursos disponibles');
       }
     );
   }

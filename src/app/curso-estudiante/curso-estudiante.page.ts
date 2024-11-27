@@ -53,10 +53,10 @@ export class CursoEstudiantePage implements OnInit {
     );
   }
 
-  // Método para cargar las clases del curso
   loadClases(cursoId: number) {
     this.cursosService.getClases(cursoId).subscribe(
       (response: any) => {
+        console.log(response); // Agrega este log para verificar la respuesta
         if (response.message === 'Listado de clases del curso') {
           this.clases = response.clases || [];  // Asignar clases o un arreglo vacío
         } else {
@@ -70,7 +70,7 @@ export class CursoEstudiantePage implements OnInit {
       }
     );
   }
-
+  
   
 
   // Mostrar una alerta con un mensaje personalizado

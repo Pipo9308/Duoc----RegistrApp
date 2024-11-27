@@ -77,4 +77,11 @@ registerAsistenciaClase(code: string): Observable<any> {
     catchError(this.handleError)
   );
 }
+
+getCursosMatriculados(userEmail: string): Observable<any> {
+  const url = `${this.apiUrl}/estudiante/cursos?user=${userEmail}`;
+  return this.http.get<any>(url).pipe(
+    catchError(this.handleError)
+  );
+}
 }
