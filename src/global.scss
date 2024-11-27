@@ -52,3 +52,10 @@ ion-content, ion-header, ion-toolbar, ion-title, ion-label, ion-item, ion-button
 ion-button {
   margin-top: 5%;
 }
+
+body.scanner-active {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+}

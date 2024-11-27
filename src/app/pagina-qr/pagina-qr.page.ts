@@ -7,51 +7,60 @@ import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
   styleUrls: ['./pagina-qr.page.scss'],
 })
 export class PaginaQrPage {
-  scanResult: string = '';  // Variable para almacenar el resultado del escaneo
+  scanResult: string = ''; // Almacena el resultado del escaneo
+  isScanning: boolean = false; // Indica si el escáner está activo
 
   constructor() {}
 
-  // Método para verificar permisos y iniciar el escáner
+  // Verificar permisos y comenzar escaneo
   async checkPermissionAndScan() {
     try {
-      // Verificar permisos
       const status = await BarcodeScanner.checkPermission({ force: true });
-
       if (status.granted) {
-        this.startScanner(); // Si los permisos están otorgados, iniciar el escáner
+        this.startScanner();
       } else if (status.denied) {
-        alert('Permiso denegado. Necesitas habilitar los permisos de cámara para escanear códigos QR.');
+        alert('Permiso de cámara denegado. Habilítalos manualmente en la configuración.');
       }
     } catch (error) {
       console.error('Error al verificar permisos:', error);
-      alert('Hubo un error al verificar los permisos.');
+      alert('Ocurrió un error al verificar permisos.');
     }
   }
 
-  // Método para iniciar el escáner
+  // Iniciar el escáner
   async startScanner() {
     try {
-      // Mostrar la cámara para previsualización
-      console.log('Iniciando el escáner y mostrando la cámara...');
+      this.isScanning = true;
       document.querySelector('body')?.classList.add('scanner-active');
-      await BarcodeScanner.hideBackground(); // Mostrar la cámara y ocultar el fondo
+      await BarcodeScanner.hideBackground(); // Ocultar el fondo y mostrar la cámara
 
-      const result = await BarcodeScanner.startScan(); // Iniciar escáner
+      const result = await BarcodeScanner.startScan(); // Iniciar el escaneo
 
-      // Verificar si se ha escaneado un código QR
       if (result.hasContent) {
         this.scanResult = result.content; // Guardar el resultado del escaneo
-        console.log('Código QR escaneado: ', this.scanResult);
+        console.log('Código QR escaneado:', this.scanResult);
+        this.stopScanner();
       } else {
         console.log('No se detectó contenido en el código QR.');
       }
-
-      // Después de terminar el escáner, quitar la clase y mostrar el fondo
-      document.querySelector('body')?.classList.remove('scanner-active');
-      BarcodeScanner.showBackground(); // Volver a mostrar el fondo
-
     } catch (error) {
       console.error('Error al escanear:', error);
+      this.stopScanner();
+    }
+  }
+
+  // Detener el escáner
+  async stopScanner() {
+    this.isScanning = false;
+    await BarcodeScanner.showBackground(); // Mostrar el fondo nuevamente
+    document.querySelector('body')?.classList.remove('scanner-active');
+    await BarcodeScanner.stopScan(); // Detener el escáner
+  }
+
+  // Volver atrás mientras se escanea
+  async handleBackAction() {
+    if (this.isScanning) {
+      await this.stopScanner(); // Detener el escaneo si está activo
     }
   }
 }
