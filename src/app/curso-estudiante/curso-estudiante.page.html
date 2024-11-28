@@ -1,60 +1,36 @@
-<!-- curso-estudiante.page.html -->
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ curso?.nombre || 'Curso' }}</ion-title>
+    <ion-title>Asistencia del Curso</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- Detalles del curso -->
-  <ion-card *ngIf="curso">
-    <ion-card-header>
-      <ion-card-title>Detalles del Curso</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>{{ curso.descripcion }}</p>
-    </ion-card-content>
-  </ion-card>
+  <!-- Indicador de carga -->
+  <div *ngIf="isLoading" class="loading-container">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
 
-  <!-- Lista de clases del curso -->
-  <ion-card *ngIf="clases.length > 0">
-    <ion-card-header>
-      <ion-card-title>Clases del Curso</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <ion-item *ngFor="let clase of clases">
-          <ion-label>
-            <h2>{{ clase.nombre }}</h2>
-            <p>Fecha: {{ clase.fecha }}</p>
-            <p>Hora de inicio: {{ clase.hora_inicio }}</p>
-            <p>Hora de término: {{ clase.hora_termino }}</p>
-          </ion-label>
-          <!-- Botón para registrar asistencia -->
-          <ion-button (click)="registrarAsistencia(clase.codigo)" color="primary">
-            Registrar Asistencia
-          </ion-button>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+  <div *ngIf="!isLoading && asistenciaCurso">
+    <h2>Asistencia del Curso</h2>
+    <p>Total de clases: {{ asistenciaCurso.total_clases }}</p>
+    <p>Total de asistencias: {{ asistenciaCurso.total_asistencias }}</p>
 
-  <!-- Mensaje en caso de no tener clases -->
-  <ion-card *ngIf="clases.length === 0">
-    <ion-card-header>
-      <ion-card-title>No hay clases programadas</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>Este curso aún no tiene clases programadas.</p>
-    </ion-card-content>
-  </ion-card>
+    <ion-list>
+      <ion-item *ngFor="let clase of asistenciaCurso.historial_clases">
+        <ion-label>
+          <h3>{{ clase.nombre }}</h3>
+          <p>Hora de inicio: {{ clase.hora_inicio }}</p>
+          <p>Hora de término: {{ clase.hora_termino }}</p>
+          <p>Asistencia: {{ clase.asistencia ? 'Asistió' : 'No asistió' }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
 
-  <!-- Botón para ver la asistencia -->
-  <ion-button (click)="verAsistencia()" fill="outline" color="primary">
-    <ion-icon slot="start" name="clipboard-outline"></ion-icon>
-    Ver Asistencia
-  </ion-button>
+  <div *ngIf="!isLoading && !asistenciaCurso">
+    <p>No se encontraron datos de asistencia.</p>
+  </div>
 </ion-content>

@@ -1,16 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
+import { ActivatedRoute } from '@angular/router'; // Importar ActivatedRoute
 
 @Component({
   selector: 'app-pagina-qr',
   templateUrl: './pagina-qr.page.html',
   styleUrls: ['./pagina-qr.page.scss'],
 })
-export class PaginaQrPage {
+export class PaginaQrPage implements OnInit {
   scanResult: string = ''; // Almacena el resultado del escaneo
   isScanning: boolean = false; // Indica si el escáner está activo
+  cursoId: string | null = null; // Almacena el ID del curso
 
-  constructor() {}
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    // Captura el parámetro 'id' de la URL
+    this.cursoId = this.route.snapshot.paramMap.get('id');
+    console.log('ID del curso:', this.cursoId); // Mostrar el ID en la consola
+  }
 
   // Verificar permisos y comenzar escaneo
   async checkPermissionAndScan() {

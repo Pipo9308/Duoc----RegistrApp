@@ -1,12 +1,20 @@
-.scanner-container {
+/* Estilo para el contenedor de la cámara */
+.scanner-placeholder {
   position: relative;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro si se está escaneando */
+  width: 100%;
+  height: 300px;
+  background-color: transparent;
 }
 
-body.scanner-active {
-  overflow: hidden;
+#camera-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+}
+
+.scan-button {
+  margin-top: 20px;
 }

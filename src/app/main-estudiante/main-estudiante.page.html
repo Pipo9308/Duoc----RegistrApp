@@ -60,21 +60,26 @@
           <ion-list-header>
             <ion-label>Cursos Matriculados</ion-label>
           </ion-list-header>
-  
+
           <!-- Mostrar los cursos matriculados -->
           <ion-item *ngFor="let curso of cursosMatriculados" class="curso-item">
             <ion-label>
               <h2>{{ curso.nombre }}</h2>
               <p>{{ curso.descripcion }}</p>
             </ion-label>
+
+            <!-- Botón para ver clases -->
             <ion-button [routerLink]="['/curso-estudiante', curso.id]" fill="outline" color="secondary">
-              Ver Clases
+              Ver Asistencia
+            </ion-button>
+
+            <!-- Nuevo botón para redirigir a pagina-qr -->
+            <ion-button [routerLink]="['/pagina-qr', curso.id]" fill="solid" color="primary">
+              Ver QR
             </ion-button>
           </ion-item>
         </ion-list>
       </ion-card-content>
     </ion-card>
-
-    
   </ion-content>
 </ion-content>

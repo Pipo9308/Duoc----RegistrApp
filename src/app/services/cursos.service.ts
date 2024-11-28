@@ -1,4 +1,3 @@
-// cursos.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -8,7 +7,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CursosService {
-  private apiUrl = 'https://www.presenteprofe.cl/api/v1';
+  private apiUrl = 'https://www.presenteprofe.cl/api/v1'; // Asegúrate de que esta URL sea la correcta
 
   constructor(private http: HttpClient) {}
 
@@ -41,47 +40,57 @@ export class CursosService {
     );
   }
 
-// Método para obtener un curso por su ID
-getCurso(cursoId: number): Observable<any> {
-  return this.http.get<any>(`${this.apiUrl}/cursos/${cursoId}`).pipe(
-    catchError(this.handleError)
-  );
-}
+  // Método para obtener un curso por su ID
+  getCurso(cursoId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/cursos/${cursoId}`).pipe(
+      catchError(this.handleError)
+    );
+  }
 
-// Método para obtener las clases de un curso
-getClases(cursoId: number): Observable<any> {
-  return this.http.get<any>(`${this.apiUrl}/cursos/${cursoId}/clase`).pipe(
-    catchError(this.handleError)
-  );
-}
+  // Método para obtener las clases de un curso
+  getClases(cursoId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/cursos/${cursoId}/clase`).pipe(
+      catchError(this.handleError)
+    );
+  }
 
-// Manejo de errores
-private handleError(error: any): Observable<any> {
-  console.error(error);
-  throw error; // Maneja el error de acuerdo a tus necesidades
-}
+  // Método para obtener la asistencia de un curso por su ID
+  getAsistenciaCurso(cursoId: number): Observable<any> {
+    const url = `${this.apiUrl}/estudiante/cursos/${cursoId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem('authToken')}`, // Token de autenticación
+      'Content-Type': 'application/json'
+    });
 
-getAsistenciaClase(cursoId: number, claseCode: string) {
-  return this.http.get<any>(`/api/v1/cursos/${cursoId}/clase/${claseCode}`);
-}
+    return this.http.get<any>(url, { headers }).pipe(
+      catchError(this.handleError)
+    );
+  }
 
-// Método para registrar la asistencia de un estudiante en una clase específica
-registerAsistenciaClase(code: string): Observable<any> {
-  const url = `${this.apiUrl}/clases/${code}/asistencia`;
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${localStorage.getItem('authToken')}`, // El token de autenticación
-    'Content-Type': 'application/json'
-  });
+  // Método para registrar la asistencia de un estudiante en una clase específica
+  registerAsistenciaClase(code: string): Observable<any> {
+    const url = `${this.apiUrl}/clases/${code}/asistencia`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem('authToken')}`, // El token de autenticación
+      'Content-Type': 'application/json'
+    });
 
-  return this.http.post<any>(url, {}, { headers }).pipe(
-    catchError(this.handleError)
-  );
-}
+    return this.http.post<any>(url, {}, { headers }).pipe(
+      catchError(this.handleError)
+    );
+  }
 
-getCursosMatriculados(userEmail: string): Observable<any> {
-  const url = `${this.apiUrl}/estudiante/cursos?user=${userEmail}`;
-  return this.http.get<any>(url).pipe(
-    catchError(this.handleError)
-  );
-}
+  // Método para obtener los cursos matriculados de un estudiante (por su email)
+  getCursosMatriculados(userEmail: string): Observable<any> {
+    const url = `${this.apiUrl}/estudiante/cursos?user=${userEmail}`;
+    return this.http.get<any>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // Manejo de errores
+  private handleError(error: any): Observable<any> {
+    console.error(error);
+    return throwError(() => new Error(error.message || 'Error en la solicitud'));
+  }
 }

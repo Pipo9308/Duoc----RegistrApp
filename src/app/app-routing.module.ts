@@ -44,23 +44,15 @@ const routes: Routes = [
     loadChildren: () => import('./main-estudiante/main-estudiante.module').then(m => m.MainEstudiantePageModule)
   },
   {
-    path: 'pagina-qr',
+    path: 'pagina-qr/:id', // Ruta con parámetro 'id' para mostrar el QR
     loadChildren: () => import('./pagina-qr/pagina-qr.module').then(m => m.PaginaQrPageModule)
-  },
-  {
-    path: 'asistencia',
-    loadChildren: () => import('./asistencia/asistencia.module').then(m => m.AsistenciaPageModule)
   },
   {
     path: 'curso-estudiante/:id',
     loadChildren: () => import('./curso-estudiante/curso-estudiante.module').then( m => m.CursoEstudiantePageModule)
   },
-  {
-    path: 'asistencia-estudiante',
-    loadChildren: () => import('./asistencia-estudiante/asistencia-estudiante.module').then( m => m.AsistenciaEstudiantePageModule)
-  }
 
-
+  
 ];
 
 @NgModule({

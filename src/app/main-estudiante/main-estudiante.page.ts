@@ -74,9 +74,4 @@ export class MainEstudiantePage implements OnInit {
     });
     await alert.present();
   }
-
-  // Método para navegar programáticamente a la página de asistencia
-  verAsistencia(cursoId: number) {
-    this.router.navigate(['/asistencia', cursoId]);
-  }
 }
