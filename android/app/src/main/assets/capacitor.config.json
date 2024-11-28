@@ -1,0 +1,17 @@
+{
+	"appId": "com.zenvibe.registrapp",
+	"appName": "RegistrApp",
+	"webDir": "www",
+	"bundledWebRuntime": false,
+	"android": {
+		"package": "com.zenvibe.registrapp",
+		"versionCode": 1,
+		"minSdkVersion": 21,
+		"targetSdkVersion": 30
+	},
+	"ios": {
+		"bundleId": "com.zenvibe.registrapp",
+		"buildNumber": "1",
+		"minVersion": "12.0"
+	}
+}

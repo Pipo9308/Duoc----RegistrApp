@@ -25,7 +25,7 @@
   </div>
 
   <!-- Iniciar escaneo si no se está escaneando -->
-  <div *ngIf="!isScanning">
+  <div *ngIf="!isScanning" class="button-container">
     <h6 class="scan-label">Escanea un código QR </h6>
     <ion-button (click)="checkPermissionAndScan()">Iniciar Escaneo</ion-button>
   </div>

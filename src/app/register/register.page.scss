@@ -66,6 +66,32 @@ ion-content {
   margin: 0; 
 }
 
+ion-content ion-button {
+  background-color: #3e1787 !important; 
+  color: #fafafa !important; 
+
+  
+  --background: #3e1787 !important;
+  --color: #fafafa !important;
+
+ 
+  border: none !important;
+  box-shadow: none !important;
+
+  
+  border-radius: 50px !important; 
+
+  
+  background-clip: padding-box !important;
+
+
+  &::part(native) {
+    background-color: #3e1787 !important;
+    border: none !important;
+    border-radius: 50px !important; 
+    background-clip: padding-box !important; 
+  }
+}
 .background-container {
   position: absolute;
   top: 0;
