@@ -64,4 +64,24 @@ private handleError(error: any): Observable<any> {
 getAsistenciaClase(cursoId: number, claseCode: string) {
   return this.http.get<any>(`/api/v1/cursos/${cursoId}/clase/${claseCode}`);
 }
+
+// Método para registrar la asistencia de un estudiante en una clase específica
+registerAsistenciaClase(code: string): Observable<any> {
+  const url = `${this.apiUrl}/clases/${code}/asistencia`;
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${localStorage.getItem('authToken')}`, // El token de autenticación
+    'Content-Type': 'application/json'
+  });
+
+  return this.http.post<any>(url, {}, { headers }).pipe(
+    catchError(this.handleError)
+  );
+}
+
+getCursosMatriculados(userEmail: string): Observable<any> {
+  const url = `${this.apiUrl}/estudiante/cursos?user=${userEmail}`;
+  return this.http.get<any>(url).pipe(
+    catchError(this.handleError)
+  );
+}
 }

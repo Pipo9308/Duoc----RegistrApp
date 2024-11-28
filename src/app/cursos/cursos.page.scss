@@ -1,5 +1,96 @@
-.shadow-card {
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-  }
+ion-content#main-content {
+  --background: #A48CEE;
+}
+
+ion-content {
+  background-color: #A48CEE !important;
+}
+
+ion-toolbar {
+  --background: #4D2990;
+  --color: #FFFFFF;
+}
+
+ion-title {
+  font-weight: bold;
+}
+
+body {
+  background-color: #A48CEE;
+}
+
+.curso-button {
+  background-color: #3e1787 !important;
+  color: #fafafa !important;
   
+  --background: #3e1787 !important;
+  --color: #fafafa !important;
+
+  border: none !important;
+  box-shadow: none !important;
+
+  border-radius: 50px !important;
+
+  background-clip: padding-box !important;
+}
+
+.curso-button::part(native) {
+  background-color: #3e1787 !important;
+  border: none !important;
+  border-radius: 50px !important;
+  background-clip: padding-box !important;
+  color:#FAFAFA !important;
+}
+
+.crear-curso-boton {
+  background-color: #3e1787 !important;
+  color: #fafafa !important;
+  --background: #3e1787 !important;
+  --color: #fafafa !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 50px !important;
+  background-clip: padding-box !important;
+}
+
+.crear-curso-boton::part(native) {
+  background-color: #3e1787 !important;
+  border: none !important;
+  border-radius: 50px !important;
+  background-clip: padding-box !important;
+}
+
+.shadow-card {
+  --background: #FFFFFF;
+  --box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  --color: #4D2990;
+  border-radius: 12px;
+}
+
+.card-title {
+  font-size: 1.4rem;
+  color: #4D2990;
+}
+
+.cursos-container {
+  background-color: #A48CEE;
+  padding: 20px;
+}
+
+ion-card.shadow-card {
+  background-color: #A48CEE;
+  border: none;
+}
+
+ion-card-title.card-title {
+  color: #4D2990;
+}
+
+ion-item.curso-item {
+  background: none;
+  border-bottom: none;
+}
+
+ion-list {
+  padding: 0;
+}

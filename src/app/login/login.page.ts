@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
-import { AuthService } from '../services/auth.service'; // Asegúrate de importar el servicio
+import { AuthService } from '../services/auth.service'; 
 
 @Component({
   selector: 'app-login',
@@ -11,15 +11,14 @@ export class LoginPage implements OnInit {
 
   username: string = '';
   password: string = '';
-  loading: boolean = false; // Indicador de carga
+  loading: boolean = false;
 
   constructor(private navCtrl: NavController, private alertCtrl: AlertController, private authService: AuthService) { }
 
   ngOnInit() {}
 
-  // Método de login
   async login() {
-    if (this.loading) return; // Evitar múltiples clics en el botón de login
+    if (this.loading) return; // Evitar múltiples clics
     this.loading = true; // Iniciar carga
 
     // Intentar iniciar sesión
@@ -29,12 +28,9 @@ export class LoginPage implements OnInit {
 
         // Verificar si la respuesta es exitosa
         if (response.message === 'Success' && response.auth && response.auth.token) {
-          // Guardar el token y el nombre de usuario
           this.authService.setAuthToken(response.auth.token);
           this.authService.setUserName(this.username);
-          this.navCtrl.navigateForward('/main-page'); // Redirigir a la página principal
         } else {
-          // Si la respuesta no es exitosa, mostrar error
           const alert = await this.alertCtrl.create({
             header: 'Error',
             message: 'Usuario y/o contraseña incorrectos, por favor intente nuevamente.',
@@ -46,7 +42,6 @@ export class LoginPage implements OnInit {
       async (error) => {
         this.loading = false; // Detener carga
 
-        // Mostrar alertas dependiendo del tipo de error
         let errorMessage = 'Ocurrió un error al iniciar sesión.';
         if (error.status === 0) {
           errorMessage = 'Error de red. Por favor, verifica tu conexión a Internet.';
@@ -63,5 +58,4 @@ export class LoginPage implements OnInit {
       }
     );
   }
-  
 }

@@ -24,7 +24,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Inicio</ion-title>
+    <ion-title>Inicio Docente RegistrApp</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -50,7 +50,7 @@
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <ion-col size="12" size-md="6">
-        <ion-button expand="block" color="primary" [routerLink]="['/pagina-qr']">
+        <ion-button class="custom-button" expand="block" color="primary" [routerLink]="['/pagina-qr']">
           <ion-icon slot="start" name="qr-code-outline"></ion-icon>
           Escanear QR
         </ion-button>
@@ -58,7 +58,7 @@
     </ion-row>
     <ion-row class="ion-justify-content-center">
       <ion-col size="12" size-md="6">
-        <ion-button expand="block" color="secondary" [routerLink]="['/cursos']">
+        <ion-button class="custom-button" expand="block" color="secondary" [routerLink]="['/cursos']">
           <ion-icon slot="start" name="book-outline"></ion-icon>
           Cursos
         </ion-button>

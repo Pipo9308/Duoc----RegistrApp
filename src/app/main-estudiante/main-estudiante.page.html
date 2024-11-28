@@ -1,0 +1,80 @@
+<ion-menu side="start" menuId="first" contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>RegistrApp</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-list>
+      <ion-item lines="none">
+        <ion-icon slot="start" name="person-circle-outline" color="primary"></ion-icon>
+        <ion-label>Hola, {{ userName }}</ion-label>
+      </ion-item>
+      <ion-item routerLink="/home" detail>
+        <ion-icon slot="start" name="log-out-outline"></ion-icon>
+        <ion-label>Cerrar sesión</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Inicio Estudiante RegistrApp</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="main-content" [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Main Page</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card class="welcome-card">
+    <ion-card-header>
+      <ion-card-title>Bienvenido</ion-card-title>
+      <ion-card-subtitle>{{ userName }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Explora las funcionalidades disponibles en la aplicación.</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Mis Cursos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="ion-padding">
+    <ion-card class="shadow-card">
+      <ion-card-header>
+        <ion-card-title class="card-title">Cursos Matriculados</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-list-header>
+            <ion-label>Cursos Matriculados</ion-label>
+          </ion-list-header>
+  
+          <!-- Mostrar los cursos matriculados -->
+          <ion-item *ngFor="let curso of cursosMatriculados" class="curso-item">
+            <ion-label>
+              <h2>{{ curso.nombre }}</h2>
+              <p>{{ curso.descripcion }}</p>
+            </ion-label>
+            <ion-button [routerLink]="['/curso-estudiante', curso.id]" fill="outline" color="secondary">
+              Ver Clases
+            </ion-button>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    
+  </ion-content>
+</ion-content>
