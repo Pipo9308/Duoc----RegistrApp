@@ -1,14 +1,11 @@
 /* Estilo para el contenedor de la cámara */
 .scanner-placeholder {
   position: relative;
-
-
   height: 100%;
   display: flex;
   justify-content: center; 
   align-items: center;     
-  background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro si se está escaneando */
-
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro cuando se está escaneando */
 }
 
 #camera-container {
@@ -18,61 +15,78 @@
   top: 0;
   left: 0;
   background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.scan-button {
-  margin-top: 20px;
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
+/* Estilos cuando el escaneo no está activo */
+.button-container {
+  height: 100%; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilo para la etiqueta del escaneo */
+.scan-label {
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Estilo para el ion-content */
 ion-content {
   --background: #FAFAFA;
   background-color: #FAFAFA !important;
 
-  
   display: flex;
   justify-content: center; 
   align-items: center;     
   height: 100%; 
+}
 
-  ion-button {
+/* Estilos para los botones */
+ion-button {
+  background-color: #3e1787 !important;
+  color: #fafafa !important;
+  --background: #3e1787 !important;
+  --color: #fafafa !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 50px !important; 
+  padding: 0;  
+  min-width: 100px;  
+  height: 100px;  
+  text-align: center; 
+
+  &::part(native) {
     background-color: #3e1787 !important;
-    color: #fafafa !important;
-    --background: #3e1787 !important;
-    --color: #fafafa !important;
     border: none !important;
-    box-shadow: none !important;
     border-radius: 50px !important; 
-    padding: 0;  
-    min-width: 100px;  
-    height: 100px;  
-    text-align: center; 
-
-    &::part(native) {
-      background-color: #3e1787 !important;
-      border: none !important;
-      border-radius: 50px !important; 
-      background-clip: padding-box !important;
-    }
-  }
-
-  .button-container {
-    height: 100%; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    background-clip: padding-box !important;
   }
 }
 
+/* Estilos para el ion-toolbar */
 ion-toolbar {
   --background: #4D2990;
   --color: #FFFFFF;
 }
 
+/* Estilos para el título */
 ion-title {
   font-weight: bold;
 }
 
+/* Estilo para el fondo del body */
 body {
   background-color: #A48CEE;
 }

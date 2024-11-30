@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
-import { ActivatedRoute } from '@angular/router'; 
+import { ActivatedRoute } from '@angular/router';
 import { CursosService } from '../services/cursos.service';  // Asegúrate de importar el servicio
 
 @Component({
@@ -12,6 +12,8 @@ export class PaginaQrPage implements OnInit {
   scanResult: string = ''; 
   isScanning: boolean = false; 
   cursoId: string | null = null; 
+
+  @ViewChild('camera', { static: false }) cameraElement!: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,6 +45,9 @@ export class PaginaQrPage implements OnInit {
       document.querySelector('body')?.classList.add('scanner-active');
       await BarcodeScanner.hideBackground();
 
+      // Acceder a la cámara y mostrarla en el video
+      this.startCamera();
+
       const result = await BarcodeScanner.startScan();
 
       if (result.hasContent) {
@@ -65,6 +70,31 @@ export class PaginaQrPage implements OnInit {
     await BarcodeScanner.showBackground();
     document.querySelector('body')?.classList.remove('scanner-active');
     await BarcodeScanner.stopScan();
+    this.stopCamera();
+  }
+
+  // Inicializar la cámara
+  startCamera() {
+    const videoElement = this.cameraElement.nativeElement;
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then((stream) => {
+          videoElement.srcObject = stream;
+          videoElement.play();
+        })
+        .catch((error) => {
+          console.error('Error al acceder a la cámara:', error);
+          alert('No se pudo acceder a la cámara.');
+        });
+    }
+  }
+
+  // Detener la cámara
+  stopCamera() {
+    const videoElement = this.cameraElement.nativeElement;
+    const stream = videoElement.srcObject as MediaStream;
+    const tracks = stream?.getTracks();
+    tracks?.forEach((track: MediaStreamTrack) => track.stop());
   }
 
   async registerAsistencia() {
