@@ -11,27 +11,23 @@
 </ion-header>
 
 <ion-content>
-  <!-- Mostrar el ID del curso si está disponible -->
   <div *ngIf="cursoId">
     <h5>Curso ID: {{ cursoId }}</h5>
   </div>
 
-  <!-- Mostrar la cámara solo cuando isScanning sea true -->
   <div *ngIf="isScanning" class="scanner-placeholder">
     <div id="camera-container">
       <h6 class="scan-label">Apunta tu cámara al código QR...</h6>
-      <!-- Aquí puedes agregar el componente o el código necesario para integrar la cámara -->
     </div>
   </div>
 
-  <!-- Iniciar escaneo si no se está escaneando -->
   <div *ngIf="!isScanning" class="button-container">
     <h6 class="scan-label">Escanea un código QR </h6>
     <ion-button (click)="checkPermissionAndScan()">Iniciar Escaneo</ion-button>
   </div>
 
-  <!-- Resultado del escaneo -->
   <div *ngIf="scanResult">
     <p>Resultado del escaneo: {{ scanResult }}</p>
+    <ion-button (click)="registerAsistencia()">Registrar Asistencia</ion-button>
   </div>
 </ion-content>

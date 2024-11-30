@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
-import { ActivatedRoute } from '@angular/router'; // Importar ActivatedRoute
+import { ActivatedRoute } from '@angular/router'; 
+import { CursosService } from '../services/cursos.service';  // Asegúrate de importar el servicio
 
 @Component({
   selector: 'app-pagina-qr',
@@ -8,19 +9,20 @@ import { ActivatedRoute } from '@angular/router'; // Importar ActivatedRoute
   styleUrls: ['./pagina-qr.page.scss'],
 })
 export class PaginaQrPage implements OnInit {
-  scanResult: string = ''; // Almacena el resultado del escaneo
-  isScanning: boolean = false; // Indica si el escáner está activo
-  cursoId: string | null = null; // Almacena el ID del curso
+  scanResult: string = ''; 
+  isScanning: boolean = false; 
+  cursoId: string | null = null; 
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private cursosService: CursosService  // Inyectar el servicio
+  ) {}
 
   ngOnInit() {
-    // Captura el parámetro 'id' de la URL
     this.cursoId = this.route.snapshot.paramMap.get('id');
-    console.log('ID del curso:', this.cursoId); // Mostrar el ID en la consola
+    console.log('ID del curso:', this.cursoId);
   }
 
-  // Verificar permisos y comenzar escaneo
   async checkPermissionAndScan() {
     try {
       const status = await BarcodeScanner.checkPermission({ force: true });
@@ -35,18 +37,19 @@ export class PaginaQrPage implements OnInit {
     }
   }
 
-  // Iniciar el escáner
   async startScanner() {
     try {
       this.isScanning = true;
       document.querySelector('body')?.classList.add('scanner-active');
-      await BarcodeScanner.hideBackground(); // Ocultar el fondo y mostrar la cámara
+      await BarcodeScanner.hideBackground();
 
-      const result = await BarcodeScanner.startScan(); // Iniciar el escaneo
+      const result = await BarcodeScanner.startScan();
 
       if (result.hasContent) {
-        this.scanResult = result.content; // Guardar el resultado del escaneo
+        this.scanResult = result.content;
         console.log('Código QR escaneado:', this.scanResult);
+        // Llamar al servicio para registrar la asistencia
+        this.registerAsistencia();
         this.stopScanner();
       } else {
         console.log('No se detectó contenido en el código QR.');
@@ -57,18 +60,29 @@ export class PaginaQrPage implements OnInit {
     }
   }
 
-  // Detener el escáner
   async stopScanner() {
     this.isScanning = false;
-    await BarcodeScanner.showBackground(); // Mostrar el fondo nuevamente
+    await BarcodeScanner.showBackground();
     document.querySelector('body')?.classList.remove('scanner-active');
-    await BarcodeScanner.stopScan(); // Detener el escáner
+    await BarcodeScanner.stopScan();
   }
 
-  // Volver atrás mientras se escanea
+  async registerAsistencia() {
+    if (this.scanResult && this.cursoId) {
+      this.cursosService.registerAsistenciaClase(this.scanResult).subscribe({
+        next: async (response) => {
+          alert(response.message); // Muestra el mensaje de la respuesta
+        },
+        error: (error) => {
+          alert('Error al registrar asistencia: ' + error.message);
+        }
+      });
+    }
+  }
+
   async handleBackAction() {
     if (this.isScanning) {
-      await this.stopScanner(); // Detener el escaneo si está activo
+      await this.stopScanner();
     }
   }
 }
