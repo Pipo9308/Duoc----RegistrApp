@@ -18,6 +18,7 @@ export class PaginaCursoPage implements OnInit {
   horaInicioClase: string = '';
   horaTerminoClase: string = '';
   qrCodeImage: string = ''; // Variable para almacenar la imagen del QR
+  selectedClase: any = null; // Almacena la clase seleccionada
 
   constructor(
     private cursosService: CursosService,
@@ -133,9 +134,15 @@ export class PaginaCursoPage implements OnInit {
     toast.present();
   }
 
+  // Método para seleccionar una clase y generar el código QR
+  onSelectClase(clase: any) {
+    this.selectedClase = clase;  // Asignar la clase seleccionada
+    this.generateQRCode(clase.codigo_web);  // Generar el QR con el código web de la clase
+  }
+
   // Método para generar el código QR
-  generateQRCode() {
-    QRCode.toDataURL('https://dasexampleeeeeeeeeeeeedasdadasdadadaeeee.com', { errorCorrectionLevel: 'H' }, (err, url) => {
+  generateQRCode(codigoWeb: string) {
+    QRCode.toDataURL(codigoWeb, { errorCorrectionLevel: 'H' }, (err, url) => {
       if (err) {
         console.error('Error generando el código QR:', err);
       } else {

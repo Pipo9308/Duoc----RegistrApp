@@ -28,9 +28,6 @@
     </ion-card-content>
   </ion-card>
 
-  <!-- Botón para generar QR -->
-  <ion-button expand="full" (click)="generateQRCode()">Generar Código QR</ion-button>
-
   <!-- Lista de clases del curso -->
   <ion-card *ngIf="clases.length > 0">
     <ion-card-header>
@@ -38,7 +35,7 @@
     </ion-card-header>
     <ion-card-content>
       <ion-list>
-        <ion-item *ngFor="let clase of clases">
+        <ion-item *ngFor="let clase of clases" (click)="onSelectClase(clase)">
           <ion-label>
             <h2>{{ clase.nombre }}</h2>
             <p>Fecha: {{ clase.fecha }}</p>
