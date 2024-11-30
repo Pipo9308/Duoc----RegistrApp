@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CursosService } from '../services/cursos.service';
 import { AlertController, ToastController } from '@ionic/angular';
+import * as QRCode from 'qrcode';
 
 @Component({
   selector: 'app-pagina-curso',
@@ -16,6 +17,7 @@ export class PaginaCursoPage implements OnInit {
   fechaClase: string = '';
   horaInicioClase: string = '';
   horaTerminoClase: string = '';
+  qrCodeImage: string = ''; // Variable para almacenar la imagen del QR
 
   constructor(
     private cursosService: CursosService,
@@ -129,5 +131,17 @@ export class PaginaCursoPage implements OnInit {
       position: 'top',
     });
     toast.present();
+  }
+
+  // Método para generar el código QR
+  generateQRCode() {
+    QRCode.toDataURL('https://dasexampleeeeeeeeeeeeedasdadasdadadaeeee.com', { errorCorrectionLevel: 'H' }, (err, url) => {
+      if (err) {
+        console.error('Error generando el código QR:', err);
+      } else {
+        console.log('QR Code generado:', url);
+        this.qrCodeImage = url;  // Asignar la URL del código QR a la variable
+      }
+    });
   }
 }

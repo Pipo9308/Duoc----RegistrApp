@@ -18,6 +18,19 @@
     </ion-card-content>
   </ion-card>
 
+  <!-- Código QR generado -->
+  <ion-card *ngIf="qrCodeImage">
+    <ion-card-header>
+      <ion-card-title>Código QR</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <img [src]="qrCodeImage" alt="Código QR" />
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Botón para generar QR -->
+  <ion-button expand="full" (click)="generateQRCode()">Generar Código QR</ion-button>
+
   <!-- Lista de clases del curso -->
   <ion-card *ngIf="clases.length > 0">
     <ion-card-header>
@@ -31,7 +44,6 @@
             <p>Fecha: {{ clase.fecha }}</p>
             <p>Hora de inicio: {{ clase.hora_inicio }}</p>
             <p>Hora de término: {{ clase.hora_termino }}</p>
-            <!-- Mostrar el código web de la clase -->
             <p>Código Web: {{ clase.codigo_web }}</p>
           </ion-label>
         </ion-item>
