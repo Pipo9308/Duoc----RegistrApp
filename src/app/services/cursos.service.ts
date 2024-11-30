@@ -93,4 +93,44 @@ export class CursosService {
     console.error(error);
     return throwError(() => new Error(error.message || 'Error en la solicitud'));
   }
+
+  // Método para obtener el historial de asistencia de una clase
+getHistorialAsistencia(cursoId: number, code: string): Observable<any> {
+  const url = `${this.apiUrl}/cursos/${cursoId}/clase/${code}`;
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${localStorage.getItem('authToken')}`, // Token de autenticación
+    'Content-Type': 'application/json'
+  });
+
+  return this.http.get<any>(url, { headers }).pipe(
+    catchError(this.handleError)
+  );
+}
+
+// Método para crear un nuevo anuncio en un curso
+createAnuncio(id: number, titulo: string, mensaje: string): Observable<any> {
+  const url = `${this.apiUrl}/cursos/${id}/anuncios`;
+  const body = { titulo, mensaje };
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${localStorage.getItem('authToken')}`, // Token de autenticación
+    'Content-Type': 'application/json'
+  });
+
+  return this.http.post<any>(url, body, { headers }).pipe(
+    catchError(this.handleError)
+  );
+}
+
+// Método para obtener los anuncios de un curso
+getAnunciosCurso(cursoId: number): Observable<any> {
+  const url = `${this.apiUrl}/cursos/${cursoId}/anuncios`;
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${localStorage.getItem('authToken')}`, // Token de autenticación
+    'Content-Type': 'application/json'
+  });
+
+  return this.http.get<any>(url, { headers }).pipe(
+    catchError(this.handleError)
+  );
+}
 }

@@ -30,7 +30,24 @@
     </ion-list>
   </div>
 
+  <div *ngIf="!isLoading && anunciosCurso">
+    <h2>Anuncios del Curso</h2>
+    <ion-list>
+      <ion-item *ngFor="let anuncio of anunciosCurso">
+        <ion-label>
+          <h3>{{ anuncio.titulo }}</h3>
+          <p>{{ anuncio.mensaje }}</p>
+          <p><small>Fecha: {{ anuncio.created_at | date }}</small></p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
   <div *ngIf="!isLoading && !asistenciaCurso">
     <p>No se encontraron datos de asistencia.</p>
+  </div>
+
+  <div *ngIf="!isLoading && !anunciosCurso">
+    <p>No se encontraron anuncios para este curso.</p>
   </div>
 </ion-content>

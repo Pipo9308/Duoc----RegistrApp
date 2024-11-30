@@ -13,12 +13,16 @@ export class PaginaCursoPage implements OnInit {
   cursoId: number | null = null; // Almacena el id del curso
   curso: any; // Almacena los detalles del curso
   clases: any[] = []; // Almacena las clases del curso seleccionado
+  anunciosCurso: any[] = []; // Almacena los anuncios del curso
 
   fechaClase: string = '';
   horaInicioClase: string = '';
   horaTerminoClase: string = '';
   qrCodeImage: string = ''; // Variable para almacenar la imagen del QR
   selectedClase: any = null; // Almacena la clase seleccionada
+  
+  tituloAnuncio: string = ''; // Almacena el título del anuncio
+  mensajeAnuncio: string = ''; // Almacena el mensaje del anuncio
 
   constructor(
     private cursosService: CursosService,
@@ -35,6 +39,7 @@ export class PaginaCursoPage implements OnInit {
         this.cursoId = +id;  // Convertir el id a número
         this.loadCurso(this.cursoId);  // Cargar los detalles del curso
         this.loadClases(this.cursoId);  // Cargar las clases del curso
+        this.getAnunciosCurso();  // Cargar los anuncios del curso
       }
     });
   }
@@ -70,6 +75,47 @@ export class PaginaCursoPage implements OnInit {
       }
     );
   }
+
+  getAnunciosCurso() {
+    if (this.cursoId === null) {
+      console.error('Curso ID es nulo');
+      return; // Salir del método si el ID del curso es nulo
+    }
+  
+    console.log('Solicitando anuncios para el curso ID:', this.cursoId); // Verificar ID en la solicitud
+    this.cursosService.getAnunciosCurso(this.cursoId).subscribe(
+      (response) => {
+        console.log('Respuesta de anuncios:', response); // Verificar la respuesta
+        if (response.anuncios && response.anuncios.length > 0) {
+          this.anunciosCurso = response.anuncios;
+        } else {
+          this.showError('No hay anuncios disponibles para este curso');
+        }
+      },
+      (error) => {
+        console.error(error);
+        if (error.status === 404) {
+          this.showError('Curso no encontrado o sin anuncios');
+        } else if (error.status === 401) {
+          this.showError('No autenticado');
+        } else {
+          this.showError('Error al obtener los anuncios');
+        }
+      }
+    );
+  }
+
+  // Método para mostrar un error
+private async showError(message: string) {
+  const toast = await this.toastController.create({
+    message,
+    duration: 2000,
+    position: 'top',
+  });
+  toast.present();
+}
+
+  
 
   // Crear una clase para un curso
   onCreateClase(cursoId: number) {
@@ -141,14 +187,42 @@ export class PaginaCursoPage implements OnInit {
   }
 
   // Método para generar el código QR
-  generateQRCode(codigoWeb: string) {
-    QRCode.toDataURL(codigoWeb, { errorCorrectionLevel: 'H' }, (err, url) => {
-      if (err) {
-        console.error('Error generando el código QR:', err);
-      } else {
-        console.log('QR Code generado:', url);
-        this.qrCodeImage = url;  // Asignar la URL del código QR a la variable
-      }
+  generateQRCode(code: string) {
+    QRCode.toDataURL(code).then((url) => {
+      this.qrCodeImage = url;  // Asignar la URL generada del QR a la variable
+    }).catch((error) => {
+      console.error('Error generando el QR', error);
     });
+  }
+
+  // Método para crear un anuncio
+  onCreateAnuncio() {
+    if (this.tituloAnuncio === '' || this.mensajeAnuncio === '') {
+      this.presentToast('Por favor, complete todos los campos del anuncio');
+      return;
+    }
+
+    if (this.cursoId !== null) {
+      this.cursosService.createAnuncio(this.cursoId, this.tituloAnuncio, this.mensajeAnuncio).subscribe(
+        async (response) => {
+          if (response.message === 'Anuncio creado exitosamente') {
+            await this.presentToast('Anuncio creado exitosamente');
+            this.resetAnuncioForm();
+          }
+        },
+        async (error) => {
+          console.error('Error al crear el anuncio', error);
+          await this.presentToast('Hubo un error al crear el anuncio');
+        }
+      );
+    } else {
+      this.presentToast('ID del curso no válido');
+    }
+  }
+
+  // Limpiar los campos del formulario de anuncio
+  resetAnuncioForm() {
+    this.tituloAnuncio = '';
+    this.mensajeAnuncio = '';
   }
 }

@@ -1,0 +1,67 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Historial de Asistencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+ 
+
+  <!-- Mostrar datos específicos -->
+  <ion-card *ngIf="historialAsistencia">
+    <ion-card-header>
+      <ion-card-title>Detalles de la Clase</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Mensaje:</strong> {{ historialAsistencia.message }}</p>
+      <p><strong>Código:</strong> {{ historialAsistencia.codigo }}</p>
+      <p><strong>ID de la Clase:</strong> {{ historialAsistencia.clase?.id }}</p>
+      <p><strong>Fecha:</strong> {{ historialAsistencia.clase?.fecha }}</p>
+      <p><strong>Hora Inicio:</strong> {{ historialAsistencia.clase?.hora_inicio }}</p>
+      <p><strong>Hora Término:</strong> {{ historialAsistencia.clase?.hora_termino }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Mostrar asistencia -->
+  <ion-card *ngIf="historialAsistencia?.asistencias && historialAsistencia.asistencias.length > 0">
+    <ion-card-header>
+      <ion-card-title>Asistencias Registradas</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let asistencia of historialAsistencia.asistencias">
+          <ion-label>
+            <h2>ID: {{ asistencia.id }}</h2>
+            <p><strong>Fecha:</strong> {{ asistencia.fecha }}</p>
+            <p><strong>RUN:</strong> {{ asistencia.run }}</p>
+            <p><strong>ID Clase Espacio:</strong> {{ asistencia.id_clase_espacio }}</p>
+            <p><strong>ID Matrícula Espacio:</strong> {{ asistencia.id_matricula_espacio }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Mensaje cuando no hay asistencias -->
+  <ion-card *ngIf="historialAsistencia?.asistencias && historialAsistencia.asistencias.length === 0">
+    <ion-card-header>
+      <ion-card-title>No hay asistencia registrada</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>No se han registrado asistencias para esta clase aún.</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Mostrar error -->
+  <ion-card *ngIf="errorMessage">
+    <ion-card-header>
+      <ion-card-title>Error</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ errorMessage }}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

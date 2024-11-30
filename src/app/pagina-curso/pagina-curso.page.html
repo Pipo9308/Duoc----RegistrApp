@@ -48,6 +48,10 @@
     </ion-card-content>
   </ion-card>
 
+  <ion-button *ngIf="selectedClase" [routerLink]="['/historial-asistencia', cursoId, selectedClase?.codigo_web]" expand="full" class="boton-historial">
+    Ver Historial de Asistencia
+  </ion-button>
+
   <!-- Mensaje en caso de no tener clases -->
   <ion-card *ngIf="clases.length === 0">
     <ion-card-header>
@@ -84,4 +88,56 @@
       </ion-card-content>
     </ion-card>
   </form>
+
+    <!-- Lista de anuncios del curso -->
+<ion-card *ngIf="anunciosCurso.length > 0">
+  <ion-card-header>
+    <ion-card-title>Anuncios del Curso</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list>
+      <ion-item *ngFor="let anuncio of anunciosCurso">
+        <ion-label>
+          <h2>{{ anuncio.titulo }}</h2>
+          <p>{{ anuncio.mensaje }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>
+
+<!-- Mensaje en caso de no tener anuncios -->
+<ion-card *ngIf="anunciosCurso.length === 0">
+  <ion-card-header>
+    <ion-card-title>No hay anuncios disponibles</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <p>Este curso no tiene anuncios disponibles en este momento.</p>
+  </ion-card-content>
+</ion-card>
+
+  <!-- Formulario para crear anuncio -->
+  <form *ngIf="cursoId !== null" (ngSubmit)="onCreateAnuncio()">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Crear Anuncio</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="stacked">Título del Anuncio</ion-label>
+          <ion-input type="text" [(ngModel)]="tituloAnuncio" name="tituloAnuncio" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Mensaje</ion-label>
+          <ion-input type="text" [(ngModel)]="mensajeAnuncio" name="mensajeAnuncio" required></ion-input>
+        </ion-item>
+
+        <ion-button expand="full" type="submit">Crear Anuncio</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </form>
+
+
+
 </ion-content>
