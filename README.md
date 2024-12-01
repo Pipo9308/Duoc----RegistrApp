@@ -25,26 +25,26 @@ Sigue estos pasos para instalar el proyecto en tu equipo:
    npm install
 Para iniciar el proyecto, ejecuta:
 
-bash
-Copiar código
+  ```bash
 ionic serve
-📱 Generar APK (Opcional)
+```
+## 📱 Generar APK (Opcional)
 Si necesitas generar un archivo APK para dispositivos Android:
 
 Abre la terminal y ejecuta:
 
-bash
-Copiar código
+```bash
 ionic build --prod
 npx cap sync
 ionic capacitor open android
+```
 En Android Studio:
 
 Navega a: Build > Build Bundle(s)/APK(s) > Build APK(s).
 Sigue las instrucciones para generar el APK.
 
 
-##🔑 Credenciales de Usuarios
+## 🔑 Credenciales de Usuarios
 Profesor:
 
 Usuario: profesor@presenteprofe.cl
