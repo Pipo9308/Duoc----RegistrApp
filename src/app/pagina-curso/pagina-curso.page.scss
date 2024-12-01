@@ -1,40 +1,76 @@
-ion-content{
-    --background: #A48CEE;
-    background-color: #A48CEE !important;
-  }
-  
-  ion-toolbar {
-    --background: #4D2990;
-    --color: #FFFFFF;
-  }
-  
-  ion-title {
-    font-weight: bold;
-  }
-  
-  body {
-    background-color: #A48CEE;
-  }
 
-  ion-button[expand="full"][type="submit"] {
-    background-color: #3e1787 !important;
-    color: #fafafa !important;
-  
-    --background: #3e1787 !important;
-    --color: #fafafa !important;
-  
-    border: none !important;
-    box-shadow: none !important;
-  
-    border-radius: 50px !important;
-  
-    background-clip: padding-box !important;
-  }
-  
-  ion-button[expand="full"][type="submit"]::part(native) {
-    background-color: #3e1787 !important;
-    border: none !important;
-    border-radius: 50px !important;
-    background-clip: padding-box !important;
-  }
-  
+ion-toolbar {
+  --background: #4D2990;
+  --color: #FFFFFF;
+}
+ion-content {
+  --background: #A48CEE;
+  background-color: #A48CEE !important;
+  padding: 0 !important; 
+  margin: 0 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  height: 100vh; 
+}
+
+
+ion-button[expand="full"][type="submit"] {
+  background-color: #3e1787 !important;
+  color: #fafafa !important;
+
+  --background: #3e1787 !important;
+  --color: #fafafa !important;
+
+  border: none !important;
+  box-shadow: none !important;
+
+  border-radius: 50px !important;
+
+  background-clip: padding-box !important;
+
+  /* Evita que el botón se expanda */
+  width: auto !important;
+  max-width: fit-content !important;
+  padding: 0;
+  margin: 0 auto; /* Centra el botón */
+  display: block; /* Asegura que se respete el centrado */
+}
+
+ion-button[expand="full"][type="submit"]::part(native) {
+  background-color: #3e1787 !important;
+  border: none !important;
+  border-radius: 50px !important;
+  background-clip: padding-box !important;
+}
+
+/* Asegura que el botón de historial no cree problemas */
+.boton-historial {
+  background-color: #3e1787 !important;
+  color: #fafafa !important;
+
+  --background: #3e1787 !important;
+  --color: #fafafa !important;
+
+  border: none !important;
+  box-shadow: none !important;
+
+  border-radius: 50px !important;
+
+  background-clip: padding-box !important;
+
+  margin: 0 auto;
+  width: auto; 
+  max-width: fit-content; 
+  padding: 0;
+
+  display: block; /* Asegura que no se alinee como inline */
+}
+
+.boton-historial::part(native) {
+  background-color: #3e1787 !important;
+  border: none !important;
+  border-radius: 50px !important;
+  background-clip: padding-box !important;
+  color: #FAFAFA !important;
+}

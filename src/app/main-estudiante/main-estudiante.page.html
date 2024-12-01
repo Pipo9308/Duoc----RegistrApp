@@ -69,12 +69,12 @@
             </ion-label>
 
             <!-- Botón para ver clases -->
-            <ion-button [routerLink]="['/curso-estudiante', curso.id]" fill="outline" color="secondary">
+            <ion-button class="curso-button" [routerLink]="['/curso-estudiante', curso.id]" fill="outline" color="secondary">
                Asistencia
             </ion-button>
 
             <!-- Nuevo botón para redirigir a pagina-qr -->
-            <ion-button [routerLink]="['/pagina-qr', curso.id]" fill="solid" color="primary">
+            <ion-button class="curso-button" [routerLink]="['/pagina-qr', curso.id]" fill="solid" color="primary">
               Escanear QR
             </ion-button>
           </ion-item>

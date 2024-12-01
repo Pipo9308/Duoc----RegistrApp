@@ -18,10 +18,26 @@ ion-content#main-content {
   }
   
   .curso-button {
-    --background: #4D2990; /* Fondo del botón */
-    --color: #FFFFFF; /* Texto blanco */
-    --border-color: #FFFFFF; /* Borde blanco */
-    border-radius: 8px; /* Opcional: redondear bordes */
+    background-color: #3e1787 !important;
+    color: #fafafa !important;
+    
+    --background: #3e1787 !important;
+    --color: #fafafa !important;
+  
+    border: none !important;
+    box-shadow: none !important;
+  
+    border-radius: 50px !important;
+  
+    background-clip: padding-box !important;
+  }
+  
+  .curso-button::part(native) {
+    background-color: #3e1787 !important;
+    border: none !important;
+    border-radius: 50px !important;
+    background-clip: padding-box !important;
+    color:#FAFAFA !important;
   }
   .shadow-card {
     --background: #FFFFFF; /* Fondo blanco */
