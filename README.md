@@ -42,7 +42,9 @@ En Android Studio:
 
 Navega a: Build > Build Bundle(s)/APK(s) > Build APK(s).
 Sigue las instrucciones para generar el APK.
-🔑 Credenciales de Usuarios
+
+
+##🔑 Credenciales de Usuarios
 Profesor:
 
 Usuario: profesor@presenteprofe.cl
