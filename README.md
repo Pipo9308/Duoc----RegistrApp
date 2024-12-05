@@ -31,6 +31,8 @@ ionic serve
 ## 📱 Generar APK (Opcional)
 Si necesitas generar un archivo APK para dispositivos Android:
 
+[APK "https://github.com/Pipo9308/Duoc----RegistrApp/tree/main/APK](https://github.com/Pipo9308/Duoc----RegistrApp/tree/main/APK)
+
 Abre la terminal y ejecuta:
 
 ```bash
@@ -53,3 +55,5 @@ Estudiante:
 
 Usuario: estudiante14@gmail.com
 Contraseña: 123456
+
+
